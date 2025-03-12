@@ -1,25 +1,25 @@
 {
-  "name": "run-script",
+  "name": "@gabsf-dev/run-script",
   "version": "0.0.1",
   "description": "The effortlessly way to run your package.json scripts",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "bin": {
+    "run-script": "./dist/index.js"
+  },
   "scripts": {
-    "dev": "npx tsc && node ./dist/index.js",
-    "run-script": "node ./dist/index.js",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "run-script",
     "run",
     "script",
     "package.json"
   ],
-  "author": "gabrielfdev",
-  "license": "ISC",
+  "author": "gabrielf.dev",
+  "license": "MIT",
   "type": "commonjs",
-  "repository": {
-    "url": "https://github.com/gabsf-dev/run-script"
-  },
+  "repository": "https://github.com/gabsf-dev/run-script",
   "homepage": "https://github.com/gabsf-dev/run-script/blob/main/README.md",
   "dependencies": {
     "@types/figlet": "^1.7.0",
