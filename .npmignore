@@ -5,3 +5,6 @@
 coverage/
 
 tsconfig.json
+babel.config.js
+jest.config.ts
+devnull
