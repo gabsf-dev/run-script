@@ -22,6 +22,13 @@ export const runScript = async ({ withAi, onlyView }: IRunScriptOptions) => {
 
     const actualFolderPath = process.cwd();
 
+    const hasPackageJson = require('fs').existsSync(
+      `${actualFolderPath}/package.json`
+    );
+    if (!hasPackageJson) {
+      throw new Error('No package.json found in the folder');
+    }
+
     const packageJson = require(`${actualFolderPath}/package.json`);
     const scripts = packageJson.scripts as TScripts;
 
@@ -59,8 +66,11 @@ export const runScript = async ({ withAi, onlyView }: IRunScriptOptions) => {
 
     execSync(`${command} ${choicedScript}`, { stdio: 'inherit' });
   } catch (error: any) {
-    if (error.code === 'MODULE_NOT_FOUND') {
-      console.error('No package.json found in the folder');
+    if (
+      error.code === 'MODULE_NOT_FOUND' ||
+      error.message === 'No package.json found in the folder'
+    ) {
+      console.error('::: No package.json found in the folder');
       return;
     }
 
