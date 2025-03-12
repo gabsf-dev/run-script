@@ -17,7 +17,7 @@ The effortlessly way to run your package.json scripts
 
 ## Getting Started
 
-To use `run-script` it's simple as to run:
+To use RunScript it's simple as to run:
 
 ```bash
 npx @gabsf-dev/run-script
