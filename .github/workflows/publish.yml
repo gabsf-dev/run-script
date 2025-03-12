@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: npm install
@@ -27,7 +28,7 @@ jobs:
       - name: Check the version
         id: check
         run: |
-          CURRENT_VERSION=$(JQ -r .version package.json)
+          CURRENT_VERSION=$(jq -r .version package.json)
           LATEST_TAG=$(git describe --tags --abbrev=0 2>\dev\null || echo "v0.0.0")
           echo "Latest Tag: $LATEST_TAG"
 
