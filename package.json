@@ -1,13 +1,12 @@
 {
   "name": "@gabsf-dev/run-script",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The effortlessly way to run your package.json scripts",
   "main": "./dist/index.js",
   "bin": {
     "run-script": "./dist/index.js"
   },
   "scripts": {
-    "publish": "npm run build && npm publish --access public",
     "build": "npx tsc",
     "test": "jest"
   },
