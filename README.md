@@ -1,11 +1,9 @@
 <p align="center">
-  <a href="https://www.npmjs.com/package/@gabsf-dev/run-script"><img src="https://img.shields.io/npm/v/%40gabsf-dev%2Frun-script
-  " alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@gabsf-dev/run-script"><img src="https://img.shields.io/npm/v/%40gabsf-dev%2Frun-script" alt="npm version"></a>
   <a href="https://github.com/gabsf-dev/run-script/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="RunScript is released under the MIT license."></a>
 </p>
 <p align="center">
-  <a href="https://github.com/gabsf-dev/run-script/blob/main/.github/workflows/publish.yml"><img alt="GitHub CI Status" src="https://img.shields.io/github/actions/workflow/status/gabsf-dev/run-script/publish.yml?branch=main&logo=github&label=CI
-  "></a>
+  <a href="https://github.com/gabsf-dev/run-script/blob/main/.github/workflows/publish.yml"><img alt="GitHub CI Status" src="https://img.shields.io/github/actions/workflow/status/gabsf-dev/run-script/publish.yml?branch=main&logo=github&label=CI"></a>
 </p>
 
 <!-- A spacer -->
