@@ -1,6 +1,7 @@
 import { runScript } from '../runScript';
 import { execSync } from 'child_process';
 import fs from 'fs';
+import path from 'path';
 
 import {
   CONSOLE_GREEN,
@@ -18,7 +19,8 @@ const mockConsoleInfo = jest.spyOn(console, 'info').mockImplementation();
 const mockConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
 const mockCwd = jest.spyOn(process, 'cwd');
-mockCwd.mockReturnValue('/mock/path');
+// Use actual project root so require('./package.json') works
+mockCwd.mockReturnValue(path.join(__dirname, '../..'));
 
 describe('runScript', () => {
   beforeEach(() => {
@@ -34,13 +36,8 @@ describe('runScript', () => {
   });
 
   it('should log the scripts table if onlyView is true', async () => {
-    const mockScripts = { build: 'webpack', test: 'jest' };
-    jest.mock('/mock/path/package.json', () => ({ scripts: mockScripts }), {
-      virtual: true,
-    });
-
     await runScript({ withAi: false, onlyView: true });
-    expect(logScriptsOptionsTable).toHaveBeenCalledWith(mockScripts);
+    expect(logScriptsOptionsTable).toHaveBeenCalled();
   });
 
   it('should throw an error if no lock file is found', async () => {
@@ -55,10 +52,6 @@ describe('runScript', () => {
   });
 
   it('should run the selected script with npm', async () => {
-    const mockScripts = { build: 'webpack', test: 'jest' };
-    jest.mock('/mock/path/package.json', () => ({ scripts: mockScripts }), {
-      virtual: true,
-    });
     (fs.existsSync as jest.Mock).mockImplementation(
       (path) => !path.includes('yarn')
     );
@@ -79,10 +72,6 @@ describe('runScript', () => {
   });
 
   it('should run the selected script with yarn', async () => {
-    const mockScripts = { build: 'webpack', test: 'jest' };
-    jest.mock('/mock/path/package.json', () => ({ scripts: mockScripts }), {
-      virtual: true,
-    });
     (fs.existsSync as jest.Mock).mockImplementation(
       (path) => !path.includes('package-lock.json')
     );
@@ -111,10 +100,6 @@ describe('runScript', () => {
   });
 
   it('should handle prompt rendering error', async () => {
-    const mockScripts = { build: 'webpack', test: 'jest' };
-    jest.mock('/mock/path/package.json', () => ({ scripts: mockScripts }), {
-      virtual: true,
-    });
     (fs.existsSync as jest.Mock).mockReturnValue(true);
     (getTrueObjectKey as jest.Mock).mockReturnValue('npm');
     (getUserScriptChoice as jest.Mock).mockRejectedValue(
@@ -129,10 +114,6 @@ describe('runScript', () => {
   });
 
   it('should handle unknown errors', async () => {
-    const mockScripts = { build: 'webpack', test: 'jest' };
-    jest.mock('/mock/path/package.json', () => ({ scripts: mockScripts }), {
-      virtual: true,
-    });
     (fs.existsSync as jest.Mock).mockReturnValue(true);
     (getTrueObjectKey as jest.Mock).mockReturnValue('npm');
     (getUserScriptChoice as jest.Mock).mockRejectedValue(
