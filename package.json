@@ -4,7 +4,7 @@
   "description": "The effortlessly way to run your package.json scripts",
   "main": "./dist/index.js",
   "bin": {
-    "run-script": "./dist/index.js"
+    "run-script": "dist/index.js"
   },
   "scripts": {
     "build": "npx tsc",
@@ -32,7 +32,10 @@
   "author": "gabrielf.dev",
   "license": "MIT",
   "type": "commonjs",
-  "repository": "https://github.com/gabsf-dev/run-script",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabsf-dev/run-script.git"
+  },
   "homepage": "https://github.com/gabsf-dev/run-script/blob/main/README.md",
   "dependencies": {
     "@types/figlet": "^1.7.0",
