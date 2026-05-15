@@ -5,13 +5,15 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v6
         with:
@@ -20,9 +22,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22'
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-          package-manager-cache: false
 
       - name: Install Dependencies
         run: npm install
@@ -54,7 +55,7 @@ jobs:
         run: npm publish
         if: steps.check.outputs.version_changed == 'true'
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         if: steps.check.outputs.version_changed == 'true'
