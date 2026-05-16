@@ -59,9 +59,7 @@ describe('handleErrors', () => {
 
     handleErrors(error);
 
-    expect(mockConsoleError).toHaveBeenCalledWith(
-      '\n::: Process interrupted. Exiting...'
-    );
+    expect(mockConsoleError).toHaveBeenCalledWith('\n::: Exiting run-script');
   });
 
   it('should handle unknown errors', () => {
