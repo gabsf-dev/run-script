@@ -2,8 +2,8 @@
 
 import { Command } from 'commander';
 import figlet from 'figlet';
-import { getPackageJsonVersion } from './utils/packageJson';
 import { runScript } from './utils/runScript';
+import packageJson from '../package.json' with { type: 'json' };
 
 const program = new Command();
 
@@ -17,7 +17,7 @@ if (help) {
 }
 
 program
-  .version(getPackageJsonVersion())
+  .version(packageJson.version)
   .description('The effortlessly way to run your package.json scripts')
   .option('-v, --view', 'View the package.json scripts')
   .parse(argv);

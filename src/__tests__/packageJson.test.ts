@@ -1,7 +1,6 @@
 import { existsSync } from 'fs';
 import {
   checkPackageJsonExists,
-  getPackageJsonVersion,
   getPackageJsonScripts,
 } from '../utils/packageJson';
 import { Mock } from 'vitest';
@@ -29,21 +28,6 @@ describe('packageJson', () => {
       const result = checkPackageJsonExists('/path/to/project');
 
       expect(result).toBe(false);
-    });
-  });
-
-  describe('getPackageJsonVersion', () => {
-    it('should return the version from package.json', () => {
-      const version = getPackageJsonVersion();
-
-      expect(typeof version).toBe('string');
-      expect(version).toBeTruthy();
-    });
-
-    it('should return a non-empty string', () => {
-      const version = getPackageJsonVersion();
-
-      expect(version.length).toBeGreaterThan(0);
     });
   });
 
