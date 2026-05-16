@@ -26,7 +26,7 @@ export const handleErrors = (error: any) => {
   }
 
   if (error.name === 'ExitPromptError') {
-    console.error('\n::: Process interrupted. Exiting...');
+    console.error('\n::: Exiting run-script');
     return;
   }
 
