@@ -1,30 +1,28 @@
 import { getUserScriptChoice } from '../utils/getUserScriptChoice';
 import { TScripts } from '../types';
+import { Mock } from 'vitest';
+import { select } from '@inquirer/prompts';
 
-jest.mock('@inquirer/prompts');
+vi.mock('@inquirer/prompts');
 
 describe('getUserScriptChoice', () => {
-  let mockSelect: jest.Mock;
-
   beforeEach(() => {
-    jest.clearAllMocks();
-    const inquirer = require('@inquirer/prompts');
-    mockSelect = inquirer.select;
+    vi.clearAllMocks();
   });
 
   it('should return the selected script', async () => {
-    const scripts: TScripts = { build: 'webpack', test: 'jest' };
-    mockSelect.mockResolvedValue('build');
+    const scripts: TScripts = { build: 'webpack', test: 'vi' };
+    (select as Mock).mockResolvedValue('build');
 
     const result = await getUserScriptChoice(scripts);
 
     expect(result).toBe('build');
-    expect(mockSelect).toHaveBeenCalledWith(
+    expect(select).toHaveBeenCalledWith(
       expect.objectContaining({
         message: 'Select the script to run',
         choices: [
           { name: 'build  [webpack]', value: 'build' },
-          { name: 'test  [jest]', value: 'test' },
+          { name: 'test  [vi]', value: 'test' },
         ],
       })
     );
@@ -32,12 +30,12 @@ describe('getUserScriptChoice', () => {
 
   it('should handle single script', async () => {
     const scripts: TScripts = { start: 'node index.js' };
-    mockSelect.mockResolvedValue('start');
+    (select as Mock).mockResolvedValue('start');
 
     const result = await getUserScriptChoice(scripts);
 
     expect(result).toBe('start');
-    expect(mockSelect).toHaveBeenCalledWith(
+    expect(select).toHaveBeenCalledWith(
       expect.objectContaining({
         choices: [{ name: 'start  [node index.js]', value: 'start' }],
       })
@@ -47,20 +45,20 @@ describe('getUserScriptChoice', () => {
   it('should handle multiple scripts', async () => {
     const scripts: TScripts = {
       build: 'webpack',
-      test: 'jest',
+      test: 'vi',
       lint: 'eslint .',
       dev: 'webpack-dev-server',
     };
-    mockSelect.mockResolvedValue('test');
+    (select as Mock).mockResolvedValue('test');
 
     const result = await getUserScriptChoice(scripts);
 
     expect(result).toBe('test');
-    expect(mockSelect).toHaveBeenCalledWith(
+    expect(select).toHaveBeenCalledWith(
       expect.objectContaining({
         choices: expect.arrayContaining([
           { name: 'build  [webpack]', value: 'build' },
-          { name: 'test  [jest]', value: 'test' },
+          { name: 'test  [vi]', value: 'test' },
           { name: 'lint  [eslint .]', value: 'lint' },
           { name: 'dev  [webpack-dev-server]', value: 'dev' },
         ]),
@@ -70,7 +68,7 @@ describe('getUserScriptChoice', () => {
 
   it('should throw error when select prompt fails', async () => {
     const scripts: TScripts = { build: 'webpack' };
-    mockSelect.mockRejectedValue(new Error('Selection error'));
+    (select as Mock).mockRejectedValue(new Error('Selection error'));
 
     await expect(getUserScriptChoice(scripts)).rejects.toThrow(
       'Selection error'

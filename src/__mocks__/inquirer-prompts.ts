@@ -1,2 +1,2 @@
-export const select = jest.fn();
-export const confirm = jest.fn();
+export const select = vi.fn();
+export const confirm = vi.fn();

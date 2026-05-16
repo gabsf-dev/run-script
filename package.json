@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "test": "jest",
+    "test": "vitest run",
     "dev": "npx tsx src/index.ts"
   },
   "keywords": [
@@ -46,7 +46,7 @@
   ],
   "author": "gabrielf.dev",
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gabsf-dev/run-script.git"
@@ -61,14 +61,10 @@
     "package-manager-detector": "^1.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@types/jest": "^30.0.0",
     "@types/node": "^25.8.0",
-    "babel-jest": "^30.4.1",
-    "jest": "^30.0.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
+    "tsx": "^4.22.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
   }
 }

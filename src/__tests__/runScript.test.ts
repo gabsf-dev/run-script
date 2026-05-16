@@ -7,26 +7,25 @@ import * as nodeModulesModule from '../utils/nodeModules';
 import * as packageJsonModule from '../utils/packageJson';
 import * as handleErrorsModule from '../utils/handleErrors';
 import { CONSOLE_GREEN, CONSOLE_RESET } from '../utils/constants';
+import { Mock } from 'vitest';
 
-jest.mock('child_process');
-jest.mock('../utils/getRunCommand');
-jest.mock('../utils/getUserScriptChoice');
-jest.mock('../utils/logScripts');
-jest.mock('../utils/nodeModules');
-jest.mock('../utils/packageJson');
-jest.mock('../utils/handleErrors');
+vi.mock('child_process');
+vi.mock('../utils/getRunCommand');
+vi.mock('../utils/getUserScriptChoice');
+vi.mock('../utils/logScripts');
+vi.mock('../utils/nodeModules');
+vi.mock('../utils/packageJson');
+vi.mock('../utils/handleErrors');
 
-const mockConsoleInfo = jest.spyOn(console, 'info').mockImplementation();
+const mockConsoleInfo = vi.spyOn(console, 'info').mockImplementation(() => {});
 
 describe('runScript', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    (packageJsonModule.checkPackageJsonExists as jest.Mock).mockReturnValue(
-      true
-    );
-    (packageJsonModule.getPackageJsonScripts as jest.Mock).mockReturnValue({
+    vi.clearAllMocks();
+    (packageJsonModule.checkPackageJsonExists as Mock).mockReturnValue(true);
+    (packageJsonModule.getPackageJsonScripts as Mock).mockReturnValue({
       build: 'webpack',
-      test: 'jest',
+      test: 'vi',
     });
   });
 
@@ -35,16 +34,16 @@ describe('runScript', () => {
 
     expect(logScriptsModule.logScriptsOptionsTable).toHaveBeenCalledWith({
       build: 'webpack',
-      test: 'jest',
+      test: 'vi',
     });
   });
 
   it('should get user script choice when onlyView is false', async () => {
-    (nodeModulesModule.hasNodeModules as jest.Mock).mockReturnValue(true);
-    (
-      getUserScriptChoiceModule.getUserScriptChoice as jest.Mock
-    ).mockResolvedValue('build');
-    (getRunCommandModule.getRunCommand as jest.Mock).mockResolvedValue({
+    (nodeModulesModule.hasNodeModules as Mock).mockReturnValue(true);
+    (getUserScriptChoiceModule.getUserScriptChoice as Mock).mockResolvedValue(
+      'build'
+    );
+    (getRunCommandModule.getRunCommand as Mock).mockResolvedValue({
       command: 'npm',
       args: ['run', 'build'],
     });
@@ -53,16 +52,16 @@ describe('runScript', () => {
 
     expect(getUserScriptChoiceModule.getUserScriptChoice).toHaveBeenCalledWith({
       build: 'webpack',
-      test: 'jest',
+      test: 'vi',
     });
   });
 
   it('should run the script with npm when node_modules exists', async () => {
-    (nodeModulesModule.hasNodeModules as jest.Mock).mockReturnValue(true);
-    (
-      getUserScriptChoiceModule.getUserScriptChoice as jest.Mock
-    ).mockResolvedValue('build');
-    (getRunCommandModule.getRunCommand as jest.Mock).mockResolvedValue({
+    (nodeModulesModule.hasNodeModules as Mock).mockReturnValue(true);
+    (getUserScriptChoiceModule.getUserScriptChoice as Mock).mockResolvedValue(
+      'build'
+    );
+    (getRunCommandModule.getRunCommand as Mock).mockResolvedValue({
       command: 'npm',
       args: ['run', 'build'],
     });
@@ -82,14 +81,14 @@ describe('runScript', () => {
   });
 
   it('should prompt to install node_modules when not present and user confirms', async () => {
-    (nodeModulesModule.hasNodeModules as jest.Mock).mockReturnValue(false);
-    (nodeModulesModule.promptInstallNodeModules as jest.Mock).mockResolvedValue(
+    (nodeModulesModule.hasNodeModules as Mock).mockReturnValue(false);
+    (nodeModulesModule.promptInstallNodeModules as Mock).mockResolvedValue(
       true
     );
-    (
-      getUserScriptChoiceModule.getUserScriptChoice as jest.Mock
-    ).mockResolvedValue('build');
-    (getRunCommandModule.getRunCommand as jest.Mock).mockResolvedValue({
+    (getUserScriptChoiceModule.getUserScriptChoice as Mock).mockResolvedValue(
+      'build'
+    );
+    (getRunCommandModule.getRunCommand as Mock).mockResolvedValue({
       command: 'npm',
       args: ['run', 'build'],
     });
@@ -104,14 +103,14 @@ describe('runScript', () => {
   });
 
   it('should not install node_modules when user declines', async () => {
-    (nodeModulesModule.hasNodeModules as jest.Mock).mockReturnValue(false);
-    (nodeModulesModule.promptInstallNodeModules as jest.Mock).mockResolvedValue(
+    (nodeModulesModule.hasNodeModules as Mock).mockReturnValue(false);
+    (nodeModulesModule.promptInstallNodeModules as Mock).mockResolvedValue(
       false
     );
-    (
-      getUserScriptChoiceModule.getUserScriptChoice as jest.Mock
-    ).mockResolvedValue('build');
-    (getRunCommandModule.getRunCommand as jest.Mock).mockResolvedValue({
+    (getUserScriptChoiceModule.getUserScriptChoice as Mock).mockResolvedValue(
+      'build'
+    );
+    (getRunCommandModule.getRunCommand as Mock).mockResolvedValue({
       command: 'npm',
       args: ['run', 'build'],
     });
@@ -127,9 +126,7 @@ describe('runScript', () => {
   });
 
   it('should handle errors gracefully', async () => {
-    (packageJsonModule.checkPackageJsonExists as jest.Mock).mockReturnValue(
-      false
-    );
+    (packageJsonModule.checkPackageJsonExists as Mock).mockReturnValue(false);
 
     await runScript({ onlyView: false });
 
@@ -137,11 +134,11 @@ describe('runScript', () => {
   });
 
   it('should run yarn script when yarn is detected', async () => {
-    (nodeModulesModule.hasNodeModules as jest.Mock).mockReturnValue(true);
-    (
-      getUserScriptChoiceModule.getUserScriptChoice as jest.Mock
-    ).mockResolvedValue('test');
-    (getRunCommandModule.getRunCommand as jest.Mock).mockResolvedValue({
+    (nodeModulesModule.hasNodeModules as Mock).mockReturnValue(true);
+    (getUserScriptChoiceModule.getUserScriptChoice as Mock).mockResolvedValue(
+      'test'
+    );
+    (getRunCommandModule.getRunCommand as Mock).mockResolvedValue({
       command: 'yarn',
       args: ['run', 'test'],
     });

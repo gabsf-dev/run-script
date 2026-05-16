@@ -1,5 +1,5 @@
 import { Table } from 'console-table-printer';
-import { TScripts } from '../types';
+import type { TScripts } from '../types';
 
 export const logScriptsOptionsTable = (scripts: TScripts) => {
   const p = new Table({

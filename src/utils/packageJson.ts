@@ -1,7 +1,10 @@
-import { TScripts } from '../types';
+import type { TScripts } from '../types';
+import { existsSync } from 'fs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 export const checkPackageJsonExists = (path: string): boolean => {
-  return require('fs').existsSync(`${path}/package.json`);
+  return existsSync(`${path}/package.json`);
 };
 
 export const getPackageJsonVersion = () => {

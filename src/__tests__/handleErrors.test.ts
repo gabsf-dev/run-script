@@ -1,7 +1,7 @@
 import { handleErrors } from '../utils/handleErrors';
 import { ERROR_MESSAGES } from '../utils/constants';
 
-const mockConsoleError = jest
+const mockConsoleError = vi
   .spyOn(console, 'error')
   .mockImplementation(() => {});
 

@@ -1,26 +1,22 @@
+import { existsSync } from 'fs';
 import {
   checkPackageJsonExists,
   getPackageJsonVersion,
   getPackageJsonScripts,
 } from '../utils/packageJson';
-import { TScripts } from '../types';
+import { Mock } from 'vitest';
 
-const mockFsExistsSync = jest.fn();
-
-jest.mock('fs', () => ({
-  existsSync: mockFsExistsSync,
-}));
+vi.mock('fs');
 
 describe('packageJson', () => {
   beforeEach(() => {
-    jest.resetModules();
-    jest.clearAllMocks();
-    mockFsExistsSync.mockClear();
+    vi.resetModules();
+    vi.clearAllMocks();
   });
 
   describe('checkPackageJsonExists', () => {
     it('should return true when package.json exists', () => {
-      mockFsExistsSync.mockReturnValue(true);
+      (existsSync as Mock).mockReturnValue(true);
 
       const result = checkPackageJsonExists('/path/to/project');
 
@@ -28,7 +24,7 @@ describe('packageJson', () => {
     });
 
     it('should return false when package.json does not exist', () => {
-      mockFsExistsSync.mockReturnValue(false);
+      (existsSync as Mock).mockReturnValue(false);
 
       const result = checkPackageJsonExists('/path/to/project');
 

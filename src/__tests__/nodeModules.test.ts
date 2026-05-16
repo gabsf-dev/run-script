@@ -1,16 +1,17 @@
-jest.mock('fs');
-jest.mock('@inquirer/prompts');
+vi.mock('fs');
+vi.mock('@inquirer/prompts');
 
 import { hasNodeModules, promptInstallNodeModules } from '../utils/nodeModules';
 import * as fs from 'fs';
 import * as inquirer from '@inquirer/prompts';
+import { Mock } from 'vitest';
 
-const mockFsExistsSync = fs.existsSync as jest.Mock;
-const mockConfirm = inquirer.confirm as jest.Mock;
+const mockFsExistsSync = fs.existsSync as Mock;
+const mockConfirm = inquirer.confirm as Mock;
 
 describe('nodeModules', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('hasNodeModules', () => {

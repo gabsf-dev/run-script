@@ -1,2 +1,2 @@
-export const detect = jest.fn();
-export const resolveCommand = jest.fn();
+export const detect = vi.fn();
+export const resolveCommand = vi.fn();

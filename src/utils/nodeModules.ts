@@ -1,8 +1,8 @@
 import { confirm } from '@inquirer/prompts';
+import { existsSync } from 'fs';
 
 export const hasNodeModules = (): boolean => {
-  const fs = require('fs');
-  return fs.existsSync('node_modules');
+  return existsSync('node_modules');
 };
 
 export const promptInstallNodeModules = async (): Promise<boolean> => {

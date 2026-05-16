@@ -1,4 +1,4 @@
-import { TScripts } from '../types';
+import type { TScripts } from '../types';
 import { select } from '@inquirer/prompts';
 
 export const getUserScriptChoice = async (scripts: TScripts) => {

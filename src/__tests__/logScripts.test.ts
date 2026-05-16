@@ -1,23 +1,26 @@
 import { logScriptsOptionsTable } from '../utils/logScripts';
 import { Table } from 'console-table-printer';
 import { TScripts } from '../types';
+import { Mock } from 'vitest';
 
-jest.mock('console-table-printer');
+vi.mock('console-table-printer');
 
 describe('logScriptsOptionsTable', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should create table with columns and add rows for each script', () => {
-    const scripts: TScripts = { build: 'webpack', test: 'jest' };
-    const mockAddRow = jest.fn();
-    const mockPrintTable = jest.fn();
+    const scripts: TScripts = { build: 'webpack', test: 'vi' };
+    const mockAddRow = vi.fn();
+    const mockPrintTable = vi.fn();
 
-    (Table as jest.Mock).mockImplementation(() => ({
-      addRow: mockAddRow,
-      printTable: mockPrintTable,
-    }));
+    (Table as Mock).mockImplementation(function () {
+      return {
+        addRow: mockAddRow,
+        printTable: mockPrintTable,
+      };
+    });
 
     logScriptsOptionsTable(scripts);
 
@@ -34,20 +37,22 @@ describe('logScriptsOptionsTable', () => {
     });
     expect(mockAddRow).toHaveBeenCalledWith({
       script: 'test',
-      command: 'jest',
+      command: 'vi',
     });
     expect(mockPrintTable).toHaveBeenCalled();
   });
 
   it('should handle single script', () => {
     const scripts: TScripts = { start: 'node index.js' };
-    const mockAddRow = jest.fn();
-    const mockPrintTable = jest.fn();
+    const mockAddRow = vi.fn();
+    const mockPrintTable = vi.fn();
 
-    (Table as jest.Mock).mockImplementation(() => ({
-      addRow: mockAddRow,
-      printTable: mockPrintTable,
-    }));
+    (Table as Mock).mockImplementation(function () {
+      return {
+        addRow: mockAddRow,
+        printTable: mockPrintTable,
+      };
+    });
 
     logScriptsOptionsTable(scripts);
 
@@ -62,17 +67,19 @@ describe('logScriptsOptionsTable', () => {
   it('should handle multiple scripts', () => {
     const scripts: TScripts = {
       build: 'webpack',
-      test: 'jest',
+      test: 'vi',
       lint: 'eslint .',
       dev: 'webpack-dev-server',
     };
-    const mockAddRow = jest.fn();
-    const mockPrintTable = jest.fn();
+    const mockAddRow = vi.fn();
+    const mockPrintTable = vi.fn();
 
-    (Table as jest.Mock).mockImplementation(() => ({
-      addRow: mockAddRow,
-      printTable: mockPrintTable,
-    }));
+    (Table as Mock).mockImplementation(function () {
+      return {
+        addRow: mockAddRow,
+        printTable: mockPrintTable,
+      };
+    });
 
     logScriptsOptionsTable(scripts);
 
