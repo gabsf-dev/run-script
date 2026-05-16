@@ -11,7 +11,7 @@
 
 <h1 align="center">RunScript</h1>
 
-The effortlessly way to run your package.json scripts
+The effortlessly way to run your js scripts
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ and run it using:
 run-script
 ```
 
-After that, just choose the script that you want to run, and RunScript make the rest, since choosing `npm` or `yarn` to run your script based on the lock file present in the folder, to logging all of the script execution for you.
+After that, just choose the script that you want to run, and RunScript make the rest, running your script automatically based on your package manager.
 
 ## Flags
 
@@ -66,14 +66,6 @@ npx @gabsf-dev/run-script --view
 <p align="center">
   <img src="./assets/run-script-view.png" alt="RunScript view example">
 </p>
-
-- _--ai_
-
-With the `--ai` flag, you can receive ai thoughts about the scripts presents in the `package.json`. It's a coming soon feature, so stay tuned for the future updates.
-
-```bash
-npx @gabsf-dev/run-script --ai
-```
 
 ## License
 

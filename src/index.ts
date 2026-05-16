@@ -2,9 +2,8 @@
 
 import { Command } from 'commander';
 import figlet from 'figlet';
-
-import { getPackageJsonVersion } from './utils';
-import { runScript } from './runScript';
+import { getPackageJsonVersion } from './utils/packageJson';
+import { runScript } from './utils/runScript';
 
 const program = new Command();
 
@@ -20,10 +19,9 @@ if (help) {
 program
   .version(getPackageJsonVersion())
   .description('The effortlessly way to run your package.json scripts')
-  .option('--ai', 'Use AI to explain the package.json scripts')
   .option('-v, --view', 'View the package.json scripts')
   .parse(argv);
 
 const options = program.opts();
 
-runScript({ withAi: options.ai, onlyView: options.view });
+runScript({ onlyView: options.view });

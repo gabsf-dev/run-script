@@ -1,17 +1,19 @@
 {
   "name": "@gabsf-dev/run-script",
-  "version": "1.0.4",
-  "description": "The effortlessly way to run your package.json scripts",
+  "version": "2.0.0",
+  "description": "The effortlessly way to run your js scripts",
   "main": "./dist/index.js",
   "bin": {
     "run-script": "dist/index.js"
   },
   "scripts": {
     "build": "npx tsc",
-    "test": "jest"
+    "test": "jest",
+    "dev": "npx tsx src/index.ts"
   },
   "keywords": [
     "run-script",
+    "rs",
     "run",
     "script",
     "package.json",
@@ -27,7 +29,20 @@
     "cross-platform",
     "node",
     "typescript",
-    "javascript"
+    "javascript",
+    "productivity",
+    "developer",
+    "tool",
+    "utility",
+    "automation",
+    "workflow",
+    "task-runner",
+    "package-manager",
+    "package-manager-detector",
+    "commander",
+    "figlet",
+    "inquirer",
+    "console-table-printer"
   ],
   "author": "gabrielf.dev",
   "license": "MIT",
@@ -38,11 +53,12 @@
   },
   "homepage": "https://github.com/gabsf-dev/run-script/blob/main/README.md",
   "dependencies": {
+    "@inquirer/prompts": "^8.4.3",
     "@types/figlet": "^1.7.0",
     "commander": "^14.0.3",
     "console-table-printer": "^2.15.0",
     "figlet": "^1.11.0",
-    "inquirer": "^13.4.3"
+    "package-manager-detector": "^1.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
